@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:notify/constants/colors.dart';
 import 'package:notify/models/user_prefs_model.dart';
 import 'package:notify/services/firebase_services.dart';
-import 'package:notify/utils/app_spacing.dart';
 import 'package:notify/widgets/primary_button.dart';
 import 'package:provider/provider.dart';
 import 'package:notify/providers/auth_provider.dart';
@@ -11,6 +10,7 @@ class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SettingsScreenState createState() => _SettingsScreenState();
 }
 
@@ -64,13 +64,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await authProvider.loadUserPreferences();
 
     _isSaving.value = false;
+    // ignore: use_build_context_synchronously
     Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
       appBar: AppBar(
@@ -168,7 +167,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    Spacer(
+                    const Spacer(
                       flex: 5,
                     ),
                     Center(
@@ -178,7 +177,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         bgColor: AppColors.primaryColor,
                       ),
                     ),
-                    Spacer(
+                    const Spacer(
                       flex: 1,
                     ),
                   ],

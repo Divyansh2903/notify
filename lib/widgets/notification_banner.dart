@@ -6,10 +6,10 @@ class NotificationBanner extends StatelessWidget {
   final String body;
 
   const NotificationBanner({
-    Key? key,
+    super.key,
     required this.title,
     required this.body,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -89,8 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               text: " and you want to receive ",
                             ),
                             TextSpan(
-                              text:
-                                  "${auth.userPreferences?.frequency ?? 'daily'}",
+                              text: auth.userPreferences?.frequency ?? 'daily',
                               style: const TextStyle(
                                   color: AppColors.primaryColor),
                             ),
@@ -121,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         text: 'Notification Preferences',
                         bgColor: AppColors.primaryColor,
                         onTap: () {
-                          navigate(context, SettingsScreen());
+                          navigate(context, const SettingsScreen());
                         },
                       ),
                       AppSpacing.height(20),
@@ -129,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         text: 'Schedule Notifications',
                         bgColor: AppColors.primaryColor,
                         onTap: () {
-                          navigate(context, ScheduleNotificationScreen());
+                          navigate(context, const ScheduleNotificationScreen());
                         },
                       ),
                       AppSpacing.height(20),
@@ -137,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         text: 'Notifications History',
                         bgColor: AppColors.primaryColor,
                         onTap: () {
-                          navigate(context, NotificationHistoryScreen());
+                          navigate(context, const NotificationHistoryScreen());
                         },
                       ),
                       AppSpacing.height(20),

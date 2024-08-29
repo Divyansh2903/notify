@@ -1,11 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:notify/constants/colors.dart';
 import 'package:notify/screens/auth/login_screen.dart';
 import 'package:notify/screens/auth/registration/steps/step_register.dart';
 import 'package:notify/screens/auth/registration/steps/step_user_prefs.dart';
-import 'package:notify/services/firebase_services.dart';
 import 'package:notify/utils/app_spacing.dart';
 import 'package:notify/utils/navigation.dart';
 
@@ -54,7 +52,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               const Spacer(),
               _currentStep == 0
                   ? RegistrationStep(onNext: _nextStep)
-                  : UserPrefsStep(),
+                  : const UserPrefsStep(),
               const Spacer(),
               _currentStep == 1
                   ? Container()

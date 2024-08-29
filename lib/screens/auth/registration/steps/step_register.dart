@@ -82,9 +82,11 @@ class _RegistrationStepState extends State<RegistrationStep> {
           firebaseFCMToken();
           widget.onNext();
         } catch (e) {
+          // ignore: use_build_context_synchronously
           showSnackBar(context, "Error storing user data");
         }
       } else {
+        // ignore: use_build_context_synchronously
         showSnackBar(context, "Error signing up");
       }
       _isLoading.value = false;

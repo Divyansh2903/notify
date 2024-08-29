@@ -37,6 +37,7 @@ class _UserPrefsStepState extends State<UserPrefsStep> {
     await _firebaseService.savePreferences(userId, preferences);
 
     await _firebaseService.subscribeToTopics(preferences);
+    // ignore: use_build_context_synchronously
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     authProvider.setPreferencesCompleted();
     await authProvider.loadUserPreferences();

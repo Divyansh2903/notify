@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:notify/services/firebase_services.dart';
@@ -8,18 +6,15 @@ import 'package:notify/widgets/notification_banner.dart';
 class ForegroundMessageHandler extends StatefulWidget {
   final Widget child;
 
-  const ForegroundMessageHandler({Key? key, required this.child})
-      : super(key: key);
+  const ForegroundMessageHandler({super.key, required this.child});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ForegroundMessageHandlerState createState() =>
       _ForegroundMessageHandlerState();
 }
 
 class _ForegroundMessageHandlerState extends State<ForegroundMessageHandler> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   @override
   void initState() {
     super.initState();
@@ -51,7 +46,7 @@ class _ForegroundMessageHandlerState extends State<ForegroundMessageHandler> {
       ),
     );
 
-    overlay?.insert(overlayEntry);
+    overlay.insert(overlayEntry);
 
     Future.delayed(const Duration(seconds: 3), () {
       overlayEntry.remove();

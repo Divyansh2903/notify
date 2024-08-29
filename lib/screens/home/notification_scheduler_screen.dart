@@ -6,6 +6,8 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class ScheduleNotificationScreen extends StatefulWidget {
+  const ScheduleNotificationScreen({super.key});
+
   @override
   _ScheduleNotificationScreenState createState() =>
       _ScheduleNotificationScreenState();
@@ -24,8 +26,8 @@ class _ScheduleNotificationScreenState
 
     tz.initializeTimeZones();
 
-    final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings("@mipmap/ic_launcher");
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
@@ -132,8 +134,8 @@ class _ScheduleNotificationScreenState
       scheduledDateTime.add(const Duration(days: 1));
     }
 
-    final title = 'Reminder';
-    final body = 'This is your scheduled notification!';
+    const title = 'Notify';
+    const body = 'This is your scheduled notification!!';
 
     await scheduleNotification(
       flutterLocalNotificationsPlugin,
