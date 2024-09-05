@@ -28,15 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseService().saveFCMToken(fcmToken ?? "");
   }
 
-  Future<void> loadPrefs() async {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    await authProvider.loadUserPreferences();
-  }
-
   @override
   void initState() {
     super.initState();
-    loadPrefs();
     firebaseFCMToken();
   }
 
@@ -62,96 +56,97 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: AppColors.primaryColor,
               ),
             )
-          : Consumer<AuthProvider>(builder: (context, auth, _) {
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                              color: AppColors.surfaceColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18),
-                          children: [
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                            color: AppColors.surfaceColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18),
+                        children: [
+                          const TextSpan(
+                            text: "You're logged in as ",
+                          ),
+                          TextSpan(
+                            text: authProvider.userEmail ?? "",
+                            style:
+                                const TextStyle(color: AppColors.primaryColor),
+                          ),
+                          const TextSpan(
+                            text: " and you want to receive ",
+                          ),
+                          TextSpan(
+                            text: authProvider.userPreferences?.frequency ??
+                                'daily',
+                            style:
+                                const TextStyle(color: AppColors.primaryColor),
+                          ),
+                          const TextSpan(
+                            text: " for the following:",
+                          ),
+                          if (authProvider.userPreferences?.receivePromotions ??
+                              false)
                             const TextSpan(
-                              text: "You're logged in as ",
+                              text: " Promotions, ",
+                              style: TextStyle(color: AppColors.primaryColor),
                             ),
-                            TextSpan(
-                              text: "${auth.userEmail}",
-                              style: const TextStyle(
-                                  color: AppColors.primaryColor),
-                            ),
+                          if (authProvider.userPreferences?.receiveUpdates ??
+                              false)
                             const TextSpan(
-                              text: " and you want to receive ",
+                              text: " Updates, ",
+                              style: TextStyle(color: AppColors.primaryColor),
                             ),
-                            TextSpan(
-                              text: auth.userPreferences?.frequency ?? 'daily',
-                              style: const TextStyle(
-                                  color: AppColors.primaryColor),
-                            ),
+                          if (authProvider.userPreferences?.receiveReminders ??
+                              false)
                             const TextSpan(
-                              text: " for the following:",
+                              text: " Reminders.",
+                              style: TextStyle(color: AppColors.primaryColor),
                             ),
-                            if (auth.userPreferences?.receivePromotions ??
-                                false)
-                              const TextSpan(
-                                text: " Promotions, ",
-                                style: TextStyle(color: AppColors.primaryColor),
-                              ),
-                            if (auth.userPreferences?.receiveUpdates ?? false)
-                              const TextSpan(
-                                text: " Updates, ",
-                                style: TextStyle(color: AppColors.primaryColor),
-                              ),
-                            if (auth.userPreferences?.receiveReminders ?? false)
-                              const TextSpan(
-                                text: " Reminders.",
-                                style: TextStyle(color: AppColors.primaryColor),
-                              ),
-                          ],
-                        ),
+                        ],
                       ),
-                      AppSpacing.height(40),
-                      PrimaryButton(
-                        text: 'Notification Preferences',
-                        bgColor: AppColors.primaryColor,
-                        onTap: () {
-                          navigate(context, const SettingsScreen());
-                        },
-                      ),
-                      AppSpacing.height(20),
-                      PrimaryButton(
-                        text: 'Schedule Notifications',
-                        bgColor: AppColors.primaryColor,
-                        onTap: () {
-                          navigate(context, const ScheduleNotificationScreen());
-                        },
-                      ),
-                      AppSpacing.height(20),
-                      PrimaryButton(
-                        text: 'Notifications History',
-                        bgColor: AppColors.primaryColor,
-                        onTap: () {
-                          navigate(context, const NotificationHistoryScreen());
-                        },
-                      ),
-                      AppSpacing.height(20),
-                      PrimaryButton(
-                        text: 'Sign Out',
-                        bgColor: AppColors.primaryColor,
-                        onTap: () async {
-                          await FirebaseService().signOut();
-                        },
-                      ),
-                    ],
-                  ),
+                    ),
+                    AppSpacing.height(40),
+                    PrimaryButton(
+                      text: 'Notification Preferences',
+                      bgColor: AppColors.primaryColor,
+                      onTap: () {
+                        navigate(context, const SettingsScreen());
+                      },
+                    ),
+                    AppSpacing.height(20),
+                    PrimaryButton(
+                      text: 'Schedule Notifications',
+                      bgColor: AppColors.primaryColor,
+                      onTap: () {
+                        navigate(context, const ScheduleNotificationScreen());
+                      },
+                    ),
+                    AppSpacing.height(20),
+                    PrimaryButton(
+                      text: 'Notifications History',
+                      bgColor: AppColors.primaryColor,
+                      onTap: () {
+                        navigate(context, const NotificationHistoryScreen());
+                      },
+                    ),
+                    AppSpacing.height(20),
+                    PrimaryButton(
+                      text: 'Sign Out',
+                      bgColor: AppColors.primaryColor,
+                      onTap: () async {
+                        await authProvider.signOut();
+                      },
+                    ),
+                  ],
                 ),
-              );
-            }),
+              ),
+            ),
     );
   }
 }

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:notify/models/user_prefs_model.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -34,10 +34,6 @@ class AuthProvider with ChangeNotifier {
   String? get userEmail => _userEmail;
   NotificationPreferences? get userPreferences => _userPreferences;
   bool get isLoading => _isLoading;
-
-  Future<void> signOut() async {
-    await _auth.signOut();
-  }
 
   Future<bool> _checkIfPreferencesCompleted() async {
     if (_user != null) {
@@ -78,6 +74,21 @@ class AuthProvider with ChangeNotifier {
       }
     }
     return null;
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+    _clearUserData();
+    notifyListeners();
+  }
+
+  void _clearUserData() {
+    _user = null;
+    _isPreferencesCompleted = false;
+    _userName = null;
+    _userEmail = null;
+    _userPreferences = null;
+    _isLoading = false;
   }
 
   Future<void> updateUserPreferences(
